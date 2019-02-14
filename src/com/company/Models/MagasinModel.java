@@ -8,7 +8,6 @@ public class MagasinModel {
     private static MagasinController magasinController;
 
 
-
     static final String DB_URL = "jdbc:mysql://localhost:3306";
     static final String USER = "root";
     static final String PASS = "";
@@ -18,7 +17,6 @@ public class MagasinModel {
     public MagasinModel() {
 
     }
-
 
 
     public boolean connectToDataBase() {
@@ -47,7 +45,6 @@ public class MagasinModel {
     }
 
 
-
     public void closeConnection() {
         try {
             conn.close();
@@ -58,7 +55,7 @@ public class MagasinModel {
     }
 
 
-    public ArrayList<Product> getAllProductsFromDataBase(){
+    public ArrayList<Product> getAllProductsFromDataBase() {
 
         Statement stmt = null;
         System.out.print("Getting products From DataBase.......   ");
@@ -105,8 +102,7 @@ public class MagasinModel {
     }
 
 
-    public boolean updateProduct(Product product){
-
+    public boolean updateProduct(Product product) {
 
         Statement stmt = null;
         System.out.print("Getting products From DataBase.......   ");
@@ -119,9 +115,11 @@ public class MagasinModel {
 
             stmt.executeQuery(sql);
 
-            sql = "SELECT ProductID,ProductName,UnitPrice,CategoryName,UnitsInStock,UnitPrice\n" +
-                    "FROM Products\n" +
-                    "JOIN Categories C on Products.CategoryID = C.CategoryID;";
+            sql = "UPDATE Products" +
+                    "SET ProductName = " + product.getProductName() + ", " +
+                    "  UnitPrice = " + product.getUnitPrice() + ", " +
+                    "  UnitsInStock = " + product.getUnitsInStock() + ", " +
+                    "WHERE ProductID = " + product.getProductID() + ";";
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -132,9 +130,6 @@ public class MagasinModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
 
 
         return false;
